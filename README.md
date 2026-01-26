@@ -39,7 +39,13 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 | `<leader>fg` | Global search (search by text) |
 | `<C-o>` | **Go back** to previous location |
 | `<C-i>` | Go forward to next location |
-| `<S-h>` / `<S-l>` | Navigate **tabs/buffers** |
+### 📑 Buffer Management
+| Key | Action |
+| --- | --- |
+| `<leader>w` / `<Cmd-w>` | **Close** current buffer |
+| `<leader>t` | New empty buffer |
+| `<Space><Left>` / `<Space><Right>` | Navigate **tabs/buffers** |
+| `<S-h>` / `<S-l>` | Navigate **tabs/buffers** (alternate) |
 | `[b` / `]b` | Previous / Next buffer |
 
 ### 🛠️ Coding & LSP
@@ -51,6 +57,7 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 | `K` | Hover documentation |
 | `za` | **Collapse/Expand current block** (fold) |
 | `<C-Space>` | Trigger **Autocomplete** |
+| `<leader>fm` | **Format** current file |
 | `<Leader>d` | Show line diagnostics |
 
 ### 🧪 Testing (Neotest)
@@ -64,7 +71,11 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 ### 🐙 Git Integration
 | Key | Action |
 | --- | --- |
-| `<leader>gg` | Open **LazyGit** (Full UI) |
+| `<leader>gg` | Open **LazyGit** (Full UI from config) |
+| `<leader>gd` | **Diff** current file (Split view) |
 | `]h` / `[h` | Next / Previous git change (hunk) |
 | `<leader>ghp` | Preview hunk |
+| `<leader>ghr` | **Reset** Hunk (Discard changes) |
+| `<leader>ghu` | **Undo** Stage Hunk (Keep changes, remove from stage) |
+| `<leader>ghR` | **Reset Buffer** (Discard ALL changes in file) |
 | `<leader>ghb` | Blame line |
