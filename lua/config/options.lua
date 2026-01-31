@@ -18,16 +18,31 @@ opt.signcolumn = "yes"      -- Always show sign column
 opt.updatetime = 300        -- Faster completion and better gitsigns experience
 opt.splitright = true       -- Horizontal splits go right
 opt.splitbelow = true       -- Vertical splits go below
+opt.showtabline = 2         -- Always show tab bar
 
 -- Folding (Collapse current block)
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99          -- Start with all folds open
 opt.foldenable = true
-opt.fillchars = { 
+opt.fillchars = {
   eob = " ", -- hide ~ at end of buffer
-  fold = " ", 
-  foldopen = "", 
-  foldsep = " ", 
-  foldclose = "" 
+  fold = " ",
+  foldopen = "▾",
+  foldsep = " ",
+  foldclose = "▸",
+  vert = "│",
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz = "┼",
 }
+
+-- Fix terminal colors
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.winhl = "Normal:Normal"
+  end,
+})

@@ -45,6 +45,7 @@ return {
       end
     end,
     opts = {
+      popup_border_style = "rounded",
       sources = { "filesystem", "buffers", "git_status", "document_symbols" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       filesystem = {

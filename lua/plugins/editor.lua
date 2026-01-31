@@ -23,6 +23,23 @@ return {
     },
     opts = {
       defaults = {
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+        initial_mode = "normal",
+        preview = {
+          mime_hook = function(filepath, bufnr, opts)
+            local is_image = function(filepath)
+              local image_extensions = { "png", "jpg", "jpeg", "gif", "webp" }
+              local split_path = vim.split(filepath:lower(), ".")
+              local extension = split_path[#split_path]
+              return vim.tbl_contains(image_extensions, extension)
+            end
+            if is_image(filepath) then
+              local command = { "catimg", filepath }
+              return command
+            end
+            return { "cat", filepath }
+          end,
+        },
         mappings = {
           i = {
             ["<C-j>"] = "move_selection_next",

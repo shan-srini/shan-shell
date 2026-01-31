@@ -39,14 +39,24 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 | `<leader>fg` | Global search (search by text) |
 | `<C-o>` | **Go back** to previous location |
 | `<C-i>` | Go forward to next location |
-### 📑 Buffer Management
+### 📑 Tabs (Workspaces)
 | Key | Action |
 | --- | --- |
-| `<leader>w` / `<Cmd-w>` | **Close** current buffer |
-| `<leader>t` | New empty buffer |
-| `<Space><Left>` / `<Space><Right>` | Navigate **tabs/buffers** |
-| `<S-h>` / `<S-l>` | Navigate **tabs/buffers** (alternate) |
-| `[b` / `]b` | Previous / Next buffer |
+| `<C-t>` | Create new tab |
+| `<C-Left>` / `<C-Right>` | Navigate to previous / next tab |
+| `gt` / `gT` | Navigate to next / previous tab (Vim built-in) |
+
+### 🪟 Window Management (Splits)
+| Key | Action |
+| --- | --- |
+| `<C-h>` | Go to left window |
+| `<C-j>` | Go to lower window |
+| `<C-k>` | Go to upper window |
+| `<C-l>` | Go to right window |
+| `<C-w>w` | Cycle through windows (Vim built-in) |
+| `<C-w>v` | Vertical split (Vim built-in) |
+| `<C-w>s` | Horizontal split (Vim built-in) |
+| `<C-w>c` | **Close** current window (Vim built-in) |
 
 ### 🛠️ Coding & LSP
 | Key | Action |
@@ -56,9 +66,15 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 | `<leader>rn` | **Rename symbol** |
 | `K` | Hover documentation |
 | `za` | **Collapse/Expand current block** (fold) |
-| `<C-Space>` | Trigger **Autocomplete** |
+| `<C-Space>` | Toggle **Autocomplete** (open/close) |
 | `<leader>fm` | **Format** current file |
 | `<Leader>d` | Show line diagnostics |
+
+### 💻 Terminal
+| Key | Action |
+| --- | --- |
+| `:terminal` | Open terminal |
+| `<C-q>` | Exit terminal mode |
 
 ### 🧪 Testing (Neotest)
 | Key | Action |

@@ -12,3 +12,6 @@ require("config.lazy")
 
 -- Initialize keymaps
 require("config.keymaps")
+
+-- Set line number color
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#9fc5e8' })

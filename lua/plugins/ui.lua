@@ -19,6 +19,8 @@ return {
       max_width = function()
         return math.floor(vim.o.columns * 0.75)
       end,
+      render = "wrapped-compact",
+      stages = "fade",
     },
   },
 
@@ -89,36 +91,31 @@ return {
     },
   },
 
-  -- Bufferline (Tabs)
+  -- Tabby (Native Vim tabs)
   {
-    "akinsho/bufferline.nvim",
+    "nanozuki/tabby.nvim",
     event = "VeryLazy",
     keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
-      { "<leader><Left>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<leader><Right>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "gt", "<cmd>tabnext<cr>", desc = "Next Tab" },
+      { "gT", "<cmd>tabprevious<cr>", desc = "Prev Tab" },
+      { "<leader>tn", "<cmd>tabnew<cr>", desc = "New Tab" },
+      { "<leader>tc", "<cmd>tabclose<cr>", desc = "Close Tab" },
+      { "<leader>to", "<cmd>tabonly<cr>", desc = "Close Other Tabs" },
     },
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          return "("..count..")"
-        end,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Explorer",
-            highlight = "Directory",
-            text_align = "left",
-          },
-        },
-      },
-    },
+    opts = function()
+      local theme = {
+        fill = "TabLine",
+        head = "TabLine",
+        current_tab = "TabLineSel",
+        tab = "TabLine",
+        win = "TabLine",
+        tail = "TabLine",
+      }
+      return {
+        preset = "tab_only",
+        theme = theme,
+      }
+    end,
   },
 
   -- Indent guides

@@ -39,6 +39,15 @@ return {
         },
       })
 
+      -- Configure diagnostic floating window borders
+      vim.diagnostic.config({
+        float = { border = "rounded" },
+      })
+
+      -- Configure LSP hover and signature borders
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
       -- Global diagnostic keymaps
       vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Line Diagnostics" })
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
@@ -86,8 +95,13 @@ return {
         mapping = cmp.mapping.preset.insert({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
+          ['<C-Space>'] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.abort()
+            else
+              cmp.complete()
+            end
+          end, { 'i', 's' }),
           ['<CR>'] = cmp.mapping.confirm({ select = true }),
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then

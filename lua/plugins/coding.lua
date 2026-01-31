@@ -52,11 +52,39 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
-        javascript = { { "prettierd", "prettier" } },
-        typescript = { { "prettierd", "prettier" } },
-        javascriptreact = { { "prettierd", "prettier" } },
-        typescriptreact = { { "prettierd", "prettier" } },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
       },
     },
+  },
+
+  -- Testing
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-vitest",
+    },
+    keys = {
+      { "<leader>tr", "<cmd>Neotest run<CR>", desc = "Run nearest test" },
+      { "<leader>tR", "<cmd>Neotest run file<CR>", desc = "Run file tests" },
+      { "<leader>ta", "<cmd>Neotest run suite<CR>", desc = "Run all tests" },
+      { "<leader>ts", "<cmd>Neotest summary<CR>", desc = "Test summary" },
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-vitest")({
+            vitestCommand = function()
+              return "vitest"
+            end,
+          }),
+        },
+      })
+    end,
   },
 }
