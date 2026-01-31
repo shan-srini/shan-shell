@@ -1,9 +1,11 @@
+brew install things
 - starship
 - ghosttty
 - lazygit
 - television
+- ripgrep
 
-starship config
+starship config... starship -> settings (copy paste content)
 ```
 # This is the configuration file for Ghostty.
 #
