@@ -1,0 +1,46 @@
+format = " ✨ $all"
+
+# Disable everything
+[character]
+disabled = true
+
+[git_status]
+disabled = true
+
+[package]
+disabled = true
+
+[python]
+disabled = true
+
+[ruby]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[elixir]
+disabled = true
+
+[terraform]
+disabled = true
+
+[conda]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[helm]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[git_branch]
+# The only module we want enabled
+style = "purple"
+
