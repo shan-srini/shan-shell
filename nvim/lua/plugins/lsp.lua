@@ -6,12 +6,13 @@ return {
       { "williamboman/mason.nvim", config = true },
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      "Hoffs/omnisharp-extended-lsp.nvim",
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         config = function()
           require("mason-tool-installer").setup({
             ensure_installed = {
-              "lua_ls", "ts_ls", "pyright", -- LSPs
+              "lua_ls", "ts_ls", "pyright", "omnisharp", -- LSPs
               "eslint_d", "pylint", -- Linters
               "stylua", "isort", "black", "prettierd", -- Formatters
             },
@@ -36,6 +37,29 @@ return {
               capabilities = capabilities,
             })
           end,
+          omnisharp = function()
+            lspconfig.omnisharp.setup({
+              capabilities = capabilities,
+              cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+              root_dir = require("lspconfig.util").root_pattern("*.sln", "*.csproj"),
+              on_new_config = function(new_config, new_root_dir)
+                new_config.cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) }
+              end,
+              settings = {
+                RoslynExtensionsOptions = {
+                  EnableAnalyzersSupport = true,
+                  EnableRoslynAnalyzers = true,
+                  AnalyzeOpenDocumentsOnly = false,
+                },
+                FormattingOptions = {
+                  EnableEditorConfigSupport = true,
+                },
+                MsBuild = {
+                  UseLegacyPlatformResolver = false,
+                },
+              },
+            })
+          end,
         },
       })
 
@@ -43,6 +67,15 @@ return {
       vim.diagnostic.config({
         float = { border = "rounded" },
       })
+
+      -- Exclude node_modules from LSP searches
+      vim.lsp.handlers['workspace/symbol'] = function(_, result, ctx)
+        if not result then return end
+        result = vim.tbl_filter(function(item)
+          return not item.location.uri:match('node_modules')
+        end, result)
+        vim.lsp.handlers['workspace/symbol'](_, result, ctx)
+      end
 
       -- Configure LSP hover and signature borders
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
@@ -58,8 +91,17 @@ return {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
           local opts = { buffer = ev.buf }
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+
+          if client and client.name == 'omnisharp' then
+            local omnisharp_extended = require('omnisharp_extended')
+            vim.keymap.set('n', 'gd', omnisharp_extended.lsp_definition, opts)
+          else
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          end
+
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
@@ -135,7 +177,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = { "lua", "vim", "vimdoc", "javascript", "typescript", "python", "markdown", "markdown_inline" },
+      ensure_installed = { "lua", "vim", "vimdoc", "javascript", "typescript", "python", "markdown", "markdown_inline", "c_sharp" },
       highlight = { enable = true },
       indent = { enable = true },
     },

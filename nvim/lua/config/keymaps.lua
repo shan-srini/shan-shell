@@ -20,7 +20,7 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 
 -- Tabs
-map("n", "<C-t>", "<cmd>tabnew<cr>", { desc = "New tab" })
+map("n", "<C-n>", "<cmd>tabnew<cr>", { desc = "New tab" })
 map("n", "<C-Left>", "<cmd>tabprevious<cr>", { desc = "Prev tab" })
 map("n", "<C-Right>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
@@ -46,14 +46,17 @@ map("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
 
 -- Toggle Sidebar
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-map("n", "<C-n>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
 map("n", "<C-e>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
 
 -- Global Find
 map("n", "<C-f>", "<cmd>Telescope live_grep<cr>", { desc = "Global Search" })
 
+-- Test Explorer
+map("n", "<C-t>", function() require("neotest").summary.toggle() end, { desc = "Toggle Test Explorer" })
+
 -- Git
 map("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+map("n", "<C-g>", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 
 -- Terminal
 map("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

@@ -23,7 +23,7 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 ### 📂 File Explorer (Neo-tree)
 | Key | Action |
 | --- | --- |
-| `<leader>e` / `<C-n>` | Toggle Explorer |
+| `<leader>e` / `<C-e>` | Toggle Explorer |
 | `Enter` | Open file in current tab |
 | `t` | Open file in **new tab** |
 | `s` | Open file in vertical split |
@@ -42,7 +42,7 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 ### 📑 Tabs (Workspaces)
 | Key | Action |
 | --- | --- |
-| `<C-t>` | Create new tab |
+| `<C-n>` | Create new tab |
 | `<C-Left>` / `<C-Right>` | Navigate to previous / next tab |
 | `gt` / `gT` | Navigate to next / previous tab (Vim built-in) |
 
@@ -79,15 +79,16 @@ A modern, full-featured Neovim configuration built for speed and aesthetics.
 ### 🧪 Testing (Neotest)
 | Key | Action |
 | --- | --- |
+| `<C-t>` | Toggle summary **(Test Explorer)** |
 | `<leader>tt` | Run nearest test |
 | `<leader>tf` | Run file tests |
-| `<leader>ts` | Toggle summary **(Test Explorer)** |
+| `<leader>ts` | Toggle summary |
 | `<leader>to` | Show output |
 
 ### 🐙 Git Integration
 | Key | Action |
 | --- | --- |
-| `<leader>gg` | Open **LazyGit** (Full UI from config) |
+| `<C-g>` / `<leader>gg` | Open **LazyGit** (Full UI from config) |
 | `<leader>gd` | **Diff** current file (Split view) |
 | `]h` / `[h` | Next / Previous git change (hunk) |
 | `<leader>ghp` | Preview hunk |

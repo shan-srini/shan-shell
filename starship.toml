@@ -44,3 +44,8 @@ disabled = true
 # The only module we want enabled
 style = "purple"
 
+[solidity]
+disabled = true
+
+[scala]
+disabled = true

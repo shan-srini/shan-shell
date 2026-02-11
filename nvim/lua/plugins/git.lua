@@ -4,6 +4,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
     opts = {
+      diff_opts = { internal = true, algorithm = "histogram", ignore_whitespace = true },
       signs = {
         add = { text = "▎", hl = "GitSignsAdd" },
         change = { text = "▎", hl = "GitSignsChange" },
