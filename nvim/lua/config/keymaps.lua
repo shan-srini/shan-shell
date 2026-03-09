@@ -65,3 +65,40 @@ map("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.api.nvim_create_user_command("HelpMe", function()
   vim.cmd("edit ~/.config/nvim/README.md")
 end, { desc = "Open Neovim cheatsheet" })
+
+vim.api.nvim_create_user_command("Assemblies", function()
+  local nuget_root = vim.fn.expand("~/.nuget/packages")
+  local dlls = vim.fn.globpath(nuget_root, "**/*.dll", false, true)
+  if #dlls == 0 then
+    vim.notify("No assemblies found in " .. nuget_root, vim.log.levels.ERROR)
+    return
+  end
+
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  pickers.new({}, {
+    prompt_title = "Pick assembly to browse",
+    finder = finders.new_table({ results = dlls }),
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr)
+      actions.select_default:replace(function()
+        local entry = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        local dll = entry[1]
+        local out = "/tmp/decompiled/" .. vim.fn.fnamemodify(dll, ":t:r")
+        vim.notify("Decompiling " .. vim.fn.fnamemodify(dll, ":t") .. "...")
+        vim.fn.system({ "ilspycmd", "-p", "-o", out, dll })
+        if vim.v.shell_error ~= 0 then
+          vim.notify("ilspycmd failed. Install with: dotnet tool install -g ilspycmd", vim.log.levels.ERROR)
+          return
+        end
+        require("telescope.builtin").find_files({ cwd = out })
+      end)
+      return true
+    end,
+  }):find()
+end, { desc = "Decompile and browse a NuGet assembly" })

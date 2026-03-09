@@ -19,3 +19,6 @@ vim.api.nvim_set_hl(0, 'LineNr', { fg = '#9fc5e8' })
 -- Fold settings
 vim.opt.foldcolumn = "1"
 vim.opt.foldmethod = "indent"
+
+vim.opt.wrap = true
+vim.opt.linebreak = true

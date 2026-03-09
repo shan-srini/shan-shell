@@ -128,6 +128,10 @@ return {
       local luasnip = require('luasnip')
       local lspkind = require('lspkind')
 
+      cmp.setup.filetype('markdown', {
+        enabled = false,
+      })
+
       cmp.setup({
         snippet = {
           expand = function(args)
